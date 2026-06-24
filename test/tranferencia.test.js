@@ -4,7 +4,7 @@ const { expect } = require('chai')
 describe('Transferências', () => {
     describe('POST / transferências', () => {
         it('Deve retornar sucesso com 201 quando o valor da transferencia for igual ou maior que R$ 10,00', async () => {
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.BASE_URL)
                 .post('/login')
                 .set('Content-Type', 'application/json')
                 .send({
@@ -14,7 +14,7 @@ describe('Transferências', () => {
             
             const token = respostaLogin.body.token
 
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -28,7 +28,7 @@ describe('Transferências', () => {
         });
 
         it('Deve retornar falha com 422 quando o valor da transferencia for menor que R$ 10,00', async () => {
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.BASE_URL)
                 .post('/login')
                 .set('Content-Type', 'application/json')
                 .send({
@@ -38,7 +38,7 @@ describe('Transferências', () => {
             
             const token = respostaLogin.body.token
 
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
